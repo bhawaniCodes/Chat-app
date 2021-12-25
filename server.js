@@ -17,6 +17,8 @@ const io = socketio(server);
 const PORT = process.env.PORT || 3000;
 
 const chatBotName = 'StudentChatBot';
+
+
 // Run when a Client connects
 io.on('connection', (socket) => {
 
@@ -27,13 +29,13 @@ io.on('connection', (socket) => {
         // join user to specific channel
         socket.join(user.channel);
 
-        // To emit message
+        // To emit message to specific joined student
         socket.emit(
             "message",
             formatMessage(chatBotName, "Welcome to Student-Chat-bot")
         );
 
-        // Broadcast on user connects
+        // Broadcast on user connects - To send message to everyone except me
         socket.broadcast
             .to(user.channel)
             .emit(

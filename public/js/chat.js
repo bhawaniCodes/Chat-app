@@ -8,7 +8,6 @@ const socket = io("http://localhost:3000", { transports: ["websocket"] });
 const { username, channel } = Qs.parse(location.search, {
     ignoreQueryPrefix: true,
 });
-console.log("username, channel :", username, channel);
 
 // Channel join send to server
 socket.emit("joinChannel", { username, channel });
@@ -21,7 +20,6 @@ socket.on("channelInfo", ({ username, channel }) => {
 
 // Receive the message from server
 socket.on("message", (message) => {
-    console.log(message);
     renderMessage(message);
 
     // Scroll down to latest message
@@ -43,14 +41,28 @@ sendButton.addEventListener("click", () => {
 
 // To render message on DOM
 function renderMessage(message) {
-    let div = document.createElement("div");
-    div.innerHTML = ` 
+    if (message.username === username) {
+        let div = document.createElement("div");
+        div.classList.add("chat-body-right-container-other2");
+        div.innerHTML = ` 
+                        <span><b>${message.username}(you)</b></span>
+                        <span>${message.time}</span>
+                        <p>
+                           ${message.text}
+                        </p>`;
+        displayMessage.appendChild(div);
+    }
+    else { 
+        let div = document.createElement("div");
+        div.classList.add("chat-body-right-container-other1");
+         div.innerHTML = ` 
                         <span><b>${message.username}</b></span>
                         <span>${message.time}</span>
                         <p>
                            ${message.text}
                         </p>`;
-    displayMessage.appendChild(div);
+         displayMessage.appendChild(div);
+    }
 }
 
 // To update the channel name at leftside bar

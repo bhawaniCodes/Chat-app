@@ -170,17 +170,30 @@ body {
     padding: 0 0.5rem;
 }
 
-.chat-body-right-container > div {
-    background-color: #c2fff9;
+
+/* css for chat others messages */
+.chat-body-right-container-other1 {
+    background-color: #f8f8f8;
     padding: 0.3rem;
     margin: 0.2rem;
     border-radius: 5px;
+    max-width: 20rem;
+
 }
-.chat-body-right-container > div:hover {
+.chat-body-right-container-other1:hover {
+    cursor: pointer;
+    transition: ease-in-out 0.4s;
+}
+
+/* css for chat self messages */
+.chat-body-right-container-other2 {
     background-color: #c2fff9;
     padding: 0.3rem;
     margin: 0.2rem;
     border-radius: 5px;
+    max-width: 20rem;
+}
+.chat-body-right-container-other2:hover {
     cursor: pointer;
     transition: ease-in-out 0.4s;
 }
