@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
         <link
             href="https://fonts.googleapis.com/css?family=Source Sans Pro"
             rel="stylesheet"
@@ -14,7 +13,14 @@
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
 
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+            integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+            crossorigin="anonymous"
+        ></script>
+        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+        
         <title>Chat Room</title>
     </head>
     <body>
@@ -43,8 +49,8 @@
                     </div>
                 </div>
 
-                <div class="chat-body-right-container">
-                    <div>
+                <div id='chat-message-display' class="chat-body-right-container">
+                    <div id='chat-message-display-div'>
                         <span>Bhanu</span>
                         <span>2:15am</span>
                         <p>
@@ -122,10 +128,12 @@
                 <input
                     type="text"
                     placeholder="Enter Message"
-                    id="enter-message"
+                    id="msg"
+                    required
                 />
-                <button class="send-button">Send</button>
+                <button id="send-button" class="send-button">Send</button>
             </div>
         </div>
+        <script src="js/chat.js"></script>
     </body>
 </html>
