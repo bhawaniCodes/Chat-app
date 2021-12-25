@@ -3,7 +3,9 @@ let sendButton = document.getElementById("send-button");
 let displayMessage = document.getElementById("chat-message-display");
 let addUserDiv = document.getElementById("add-user-here");
 let channelNameP = document.getElementById("channel-name");
-const socket = io("http://localhost:3000", { transports: ["websocket"] });
+const socket = io("https://afternoon-hamlet-53999.herokuapp.com/", {
+    transports: ["websocket"],
+});
 
 const { username, channel } = Qs.parse(location.search, {
     ignoreQueryPrefix: true,
