@@ -1,11 +1,11 @@
 require('dotenv').config();
-const cors = require('cors');
+const formatMessage = require('./utils/messages');
+const {userJoin, getCurrentUser, leaveUser, getChannelStudents } = require('./utils/users')
 const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const app = express();
-app.use(cors());
 
 // Static file set
 app.use('/static', express.static(path.join(__dirname, 'public')));
@@ -15,26 +15,62 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 const PORT = process.env.PORT || 3000;
-// Set static folder
 
+const chatBotName = 'StudentChatBot';
 // Run when a Client connects
 io.on('connection', (socket) => {
+
+    // To join the student inside the channel
+    socket.on("joinChannel", ({ username, channel }) => {
+        const user = userJoin(socket.id, username, channel);
+
+        // join user to specific channel
+        socket.join(user.channel);
+
+        // To emit message
+        socket.emit(
+            "message",
+            formatMessage(chatBotName, "Welcome to Student-Chat-bot")
+        );
+
+        // Broadcast on user connects
+        socket.broadcast
+            .to(user.channel)
+            .emit(
+                "message",
+                formatMessage(chatBotName, `${user.username} has joined the chat`)
+        );
+        
+        // To update Channel & User info
+        io.to(user.channel).emit("channelInfo", {
+            username: getChannelStudents(user.channel),
+            channel: user.channel,
+        });
+    });
     
-    // To emit message
-    socket.emit('message', 'Welcome to Chat-bot')
-
-    // Broadcast on user connects
-    socket.broadcast.emit('message', 'A student has joined chat');
-
-    // Runs when user disconnects
-    socket.on('disconnect', () => { 
-        io.emit('message', 'A student has left the chat');
-    })
-
     // Get the chatMessage from client side
     socket.on('chatMessage', (msg) => { 
-        console.log(msg)
-        io.emit('message', msg);
+        const user = getCurrentUser(socket.id);
+
+        io.to(user.channel).emit('message', formatMessage(user.username, msg));
+    })
+
+    // Runs when user disconnects
+    socket.on('disconnect', () => {
+        const user = leaveUser(socket.id);
+
+        if (user) {
+            io.to(user.channel).emit(
+                "message",
+                formatMessage(chatBotName, `${user.username} has left the chat`)
+            );
+        }
+
+        // To update Channel & User info
+        io.to(user.channel).emit("channelInfo", {
+            username: getChannelStudents(user.channel),
+            channel: user.channel,
+        });
     })
 })
 

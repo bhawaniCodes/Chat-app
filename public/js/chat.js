@@ -1,8 +1,25 @@
 let chatTypeInput = document.getElementById("msg");
 let sendButton = document.getElementById("send-button");
 let displayMessage = document.getElementById("chat-message-display");
-const socket = io("http://localhost:3000");
+let addUserDiv = document.getElementById("add-user-here");
+let channelNameP = document.getElementById("channel-name");
+const socket = io("http://localhost:3000", { transports: ["websocket"] });
 
+const { username, channel } = Qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+});
+console.log("username, channel :", username, channel);
+
+// Channel join send to server
+socket.emit("joinChannel", { username, channel });
+
+// To update the Channel & User info
+socket.on("channelInfo", ({ username, channel }) => {
+    updateChannelName(channel);
+    updateUserName(username);
+});
+
+// Receive the message from server
 socket.on("message", (message) => {
     console.log(message);
     renderMessage(message);
@@ -11,6 +28,7 @@ socket.on("message", (message) => {
     displayMessage.scrollTop = displayMessage.scrollHeight;
 });
 
+// Type message & send to server
 sendButton.addEventListener("click", () => {
     // Get typed message
     let msg = chatTypeInput.value;
@@ -19,17 +37,30 @@ sendButton.addEventListener("click", () => {
     socket.emit("chatMessage", msg);
 
     // Clear input
-    chatTypeInput.value = '';
+    chatTypeInput.value = "";
+    chatTypeInput.focus();
 });
 
 // To render message on DOM
 function renderMessage(message) {
-    let div = document.createElement('div');
+    let div = document.createElement("div");
     div.innerHTML = ` 
-                        <span>Bhanu</span>
-                        <span>2:15am</span>
+                        <span><b>${message.username}</b></span>
+                        <span>${message.time}</span>
                         <p>
-                           ${message}
+                           ${message.text}
                         </p>`;
     displayMessage.appendChild(div);
+}
+
+// To update the channel name at leftside bar
+function updateChannelName(channel) {
+    channelNameP.innerHTML = channel;
+}
+
+// To add or update the Username at leftside bar
+function updateUserName(username) {
+    addUserDiv.innerHTML = `${username.map(
+        (userr) => `<p>${userr.username}</p>`
+    ).join('')}`
 }
