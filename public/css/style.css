@@ -112,7 +112,7 @@ body {
 .chat-body-left-container {
     overflow-y: scroll;
     height: 20rem;
-    width: 12rem;
+    min-width: 12rem;
     padding: 1rem;
     /* background-color: #67ffbde5; */
     border-right: 1px solid rgba(133, 132, 132, 0.658);
@@ -177,7 +177,7 @@ body {
     padding: 0.3rem;
     margin: 0.2rem;
     border-radius: 5px;
-    max-width: 20rem;
+    word-wrap: break-word;
 
 }
 .chat-body-right-container-other1:hover {
@@ -191,17 +191,16 @@ body {
     padding: 0.3rem;
     margin: 0.2rem;
     border-radius: 5px;
-    max-width: 20rem;
+    word-wrap: break-word;
 }
 .chat-body-right-container-other2:hover {
     cursor: pointer;
     transition: ease-in-out 0.4s;
 }
-
 /* Chat right-body container CSS end*/
 
-/* Enter message at footer start*/
 
+/* Enter message at footer start*/
 .chat-message-type-container {
     display: flex;
     justify-content: space-between;
