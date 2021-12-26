@@ -8,7 +8,7 @@ const socketio = require('socket.io');
 const app = express();
 
 // Static file set
-app.use('/static', express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 // this http & createserver use internally but we want
 //  it here to use server for socket
 const server = http.createServer(app);
@@ -74,6 +74,10 @@ io.on('connection', (socket) => {
             channel: user.channel,
         });
     })
+})
+
+app.get('/', (req, res) => { 
+    return res.status(201).sendFile(path.join(__dirname, '/index.html'));
 })
 
 server.listen(PORT, () => {
