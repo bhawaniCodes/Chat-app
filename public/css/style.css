@@ -170,7 +170,6 @@ body {
     padding: 0 0.5rem;
 }
 
-
 /* css for chat others messages */
 .chat-body-right-container-other1 {
     background-color: #f8f8f8;
@@ -178,7 +177,6 @@ body {
     margin: 0.2rem;
     border-radius: 5px;
     word-wrap: break-word;
-
 }
 .chat-body-right-container-other1:hover {
     cursor: pointer;
@@ -198,7 +196,6 @@ body {
     transition: ease-in-out 0.4s;
 }
 /* Chat right-body container CSS end*/
-
 
 /* Enter message at footer start*/
 .chat-message-type-container {
@@ -247,3 +244,29 @@ body {
 }
 
 /* Custom scroll end */
+
+/* Css for mobile */
+@media (max-width: 760px) {
+    .main-container {
+        width: 15rem;
+    }
+
+    .chat-main-container {
+        width: 20rem;
+    }
+    .chat-body-left-container {
+        min-width: 10rem;
+    }
+    .chat-channel-detail > :nth-child(1) {
+        margin: 0 0 0.5rem;
+        width: 3rem;
+    }
+    .chat-user-detail > :nth-child(1) {
+        margin: 0 0 0.5rem;
+        width: 3rem;
+    }
+
+    .send-button {
+        width: 3rem;
+    }
+}
