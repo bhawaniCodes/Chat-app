@@ -6,7 +6,6 @@ let hour =
     (d.getMinutes() + 30) +
     ` ${(d.getHours() + 5) >= 12 ? "pm" : "am"}`;
 
-console.log("timeee", hour);
 function formatMessage(username, text) {
     return {
         username,
