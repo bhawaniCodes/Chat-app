@@ -6,6 +6,9 @@ let channelNameP = document.getElementById("channel-name");
 const socket = io(window.location.origin, {
     transports: ["websocket"],
 });
+// const socket = io("http://localhost:3000", {
+//     transports: ["websocket"],
+// });
 
 const { username, channel } = Qs.parse(location.search, {
     ignoreQueryPrefix: true,

@@ -1,8 +1,8 @@
 let moment = require('moment');
 
-let timeZone = moment.clone().tz("Asia/Kolkata");
+// let timeZone = moment.clone().tz("Asia/Kolkata");
 
-console.log("timeee", timeZone.format());
+// console.log("timeee", timeZone.format());
 
 function formatMessage(username, text) {
     return {
