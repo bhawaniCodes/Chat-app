@@ -245,17 +245,17 @@ body {
 
 /* Custom scroll end */
 
-/* Css for mobile */
+/* Css for mobile View*/
 @media (max-width: 760px) {
     .main-container {
-        width: 15rem;
+        width: 100%;
     }
 
     .chat-main-container {
-        width: 20rem;
+        width: 100%;
     }
     .chat-body-left-container {
-        min-width: 10rem;
+        min-width: 2rem;
     }
     .chat-channel-detail > :nth-child(1) {
         margin: 0 0 0.5rem;
@@ -268,5 +268,21 @@ body {
 
     .send-button {
         width: 3rem;
+    }
+
+    .chat-message-type-container {
+        border: 1rem solid #55f3af7e;
+        background-color: #55f3af7e;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #ffffff;
+    }
+
+    .send-button:hover {
+        background-color: #ffffff;
+    }
+
+    .leave-channel:hover {
+        background-color: #ffffff;
     }
 }
