@@ -3,7 +3,7 @@ let sendButton = document.getElementById("send-button");
 let displayMessage = document.getElementById("chat-message-display");
 let addUserDiv = document.getElementById("add-user-here");
 let channelNameP = document.getElementById("channel-name");
-const socket = io("http://localhost:3000/", {
+const socket = io(window.location.origin, {
     transports: ["websocket"],
 });
 
